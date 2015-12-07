@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Task </title>
+    <style>
+        .param {
+            padding:2px;
+            margin: 2px;
+        }
+    </style>
+    <script >
+      window.onload = function(){
+          document.getElementById("Path").onclick = disablefield;
+          document.getElementById("Select").onclick = disablefield;
+      }
+
+      function disablefield() {
+          if (document.getElementById("Path").checked == true) {
+              document.getElementById("6").value = "";
+              document.getElementById("6").disabled = true;
+              document.getElementById("1").value = "";
+              document.getElementById("1").disabled = true;
+              document.getElementById("2").value = "";
+              document.getElementById("2").disabled = true;
+              document.getElementById("3").value = "";
+              document.getElementById("3").disabled = true;
+              document.getElementById("4").value = "";
+              document.getElementById("4").checked= false;
+              document.getElementById("4").disabled = true;
+              document.getElementById("5").value = "";
+              document.getElementById("5").disabled = false;
+          }else if(document.getElementById("Select")) {
+              document.getElementById("6").value = "";
+              document.getElementById("6").disabled = false;
+              document.getElementById("1").value = "";
+              document.getElementById("1").disabled = false;
+              document.getElementById("2").value = "";
+              document.getElementById("2").disabled = false;
+              document.getElementById("3").value = "";
+              document.getElementById("3").disabled = false;
+              document.getElementById("4").value = "";
+              document.getElementById("4").chascked = false;
+              document.getElementById("4").disabled = false;
+              document.getElementById("5").value = "";
+              document.getElementById("5").disabled = true;
+          }
+      }
+
+    </script>
+</head>
+<body>
+
+<h1> Select way you want to Parse: </h1>
+
+<form method="post" action="Parse">
+<ul style="list-style: none">
+    <li>
+        <input type="radio" id="Path" name="ParseSelect" value="fullPath1"> Input full path with parameters:
+        <br>
+        <input type="text" id="5" name="fullPath" size="30" style="margin: 5px 0px 10px 25px;">
+    </li>
+    <p>
+        <li>
+        <input type="radio" id="Select" name="ParseSelect" value="selectAttrib"> Input values for parameters:
+        <br>
+        <div style="float: left; padding: 7px;">
+            <p class="param">Path: &nbsp </p>
+            <p class="param">Limit: &nbsp</p>
+            <p class="param">q:&nbsp </p>
+            <p class="param">Lenght: &nbsp </p>
+            <p class="param">MetaData: &nbsp </p>
+
+        </div>
+
+        <div style="padding-top: 5px">
+            <input class="param" id="6" type="text" name="path"> <br>
+            <input class="param" id="1" type="text" name="limit"> <br>
+            <input class="param" id="2" type="text" name="q"> <br>
+            <input class="param" id="3" type="text" name="length"> <br>
+            <input class="param" id="4" type="checkbox" name="metaData">
+
+        </div>
+
+    </li>
+    <li><input type="submit" value="Submit"> </li>
+</ul>
+</form>
+
+</body>
+</html>
