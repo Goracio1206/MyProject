@@ -20,6 +20,10 @@ public class WriteJSON {
 
     public JSONObject result = new JSONObject();
 
+    public JSONObject getResult() {
+        return result;
+    }
+
     private String getCreationTime(String path) {
         Path file = Paths.get(path);
         String creationDate = "";
@@ -35,51 +39,54 @@ public class WriteJSON {
     public void addMetaData(String path) {
         File file = new File(path);
         JSONObject metadata = new JSONObject();
-            metadata.put("fileName", file.getName());
-            metadata.put("fileSize", file.length());
-            metadata.put("fileCreationDate", getCreationTime(file.getPath()));
+        metadata.put("fileName", file.getName());
+        metadata.put("fileSize", file.length());
+        metadata.put("fileCreationDate", getCreationTime(file.getPath()));
         result.put("metaData", metadata);
     }
 
 
-    public void addData(String path, int limit, String q, int length,boolean metaData) throws IOException {
+    public void addData(String path, int limit, String q, int length, boolean metaData) throws IOException {
         JSONObject JSONresponse = new JSONObject();
         ReadFromFile read = new ReadFromFile();
         read.listToSearch(path);
         ArrayList<String> list = read.getFinallist();
         JSONArray array = new JSONArray();
 
-//        if (metaData){
-//            addMetaData(path);
-//        }
-
-        for (int i = 0; i <list.size() ; i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (limit == 0) {
-                for (int j = 0; j <10000 ; j++) {
-                    array.add((char)j);
+                for (int j = 0; j < 10000; j++) {
+                    array.add((char) j);
                 }
-            }else if (list.get(i).contains(q)){
-                if (list.get(i).length()>length || length != 0) {
+            } else if (list.get(i).contains(q)) {
+                if (list.get(i).length() <= length || length != 0) {
                     array.add(list.get(i));
                 }
             }
         }
         result.put("text", array);
-
+        if (metaData){
+            addMetaData(path);
+        }
 
     }
 
     public static void main(String[] args) throws IOException {
+
+
         WriteJSON wr = new WriteJSON();
-        wr.addMetaData("d:\\mytest2\\mytest.txt");
-        wr.addData("d:\\mytest2\\mytest.txt",3, "a", 3,true);
+        StringParser str = new StringParser();
+        str.parse("C:\\mytest2\\1.txt?q=a");
+       //wr.addMetaData("d:\\mytest2\\mytest.txt");
+        wr.addData(str.getPath(), str.getLimit(), str.getQ(),str.getLength(),str.isMetaData());
 
         System.out.println(wr.result.toJSONString());
 
-        FileWriter write = new FileWriter("d:\\mytest2\\1.txt");
-        write.write(wr.result.toJSONString());
-        write.flush();
-        write.close();
+//        FileWriter write = new FileWriter("d:\\mytest2\\1.txt");
+//        write.write(wr.result.toJSONString());
+//        write.flush();
+//        write.close();
+  }
 
-    }
+
 }

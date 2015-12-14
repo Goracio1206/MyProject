@@ -41,6 +41,10 @@ public class StringParser {
         return q;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     public void parse(String query) {
         String[] URLParts = query.split("\\?");
         this.path = URLParts[0];
@@ -60,12 +64,5 @@ public class StringParser {
                 this.metaData = Boolean.valueOf(result[1]);
             }
         }
-
-
     }
-
-    public String getPath() {
-        return path;
-    }
-
 }
