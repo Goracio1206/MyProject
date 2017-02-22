@@ -47,7 +47,7 @@ public class Parse extends HttpServlet {
         } else if (test.equals("")) {
         out.print("You are Stupid!");
     }
-
+      
         //JSONObject result = write.getResult();
         //String exit = result.toString();
        // out.print(result);
